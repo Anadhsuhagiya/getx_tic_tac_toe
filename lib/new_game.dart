@@ -22,7 +22,7 @@ class new_game extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Container(
-                  margin: EdgeInsets.only(top: 10,bottom: 80,left: 10,right: 10),
+                  margin: EdgeInsets.only(top: 10,bottom: 10,left: 10,right: 10),
                   height: 50,
                   width: 120,
                   alignment: Alignment.center,
@@ -41,7 +41,7 @@ class new_game extends StatelessWidget {
                   child: Text("Player 1", style: TextStyle(color: Colors.white,fontSize: 20),),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 10,bottom: 80,left: 10,right: 10),
+                  margin: EdgeInsets.only(top: 10,bottom: 10,left: 10,right: 10),
                   height: 50,
                   width: 70,
                   alignment: Alignment.center,
@@ -60,7 +60,7 @@ class new_game extends StatelessWidget {
                   child: Text("${B.cnt1.value} - ${B.cnt2.value}", style: TextStyle(color: Colors.white,fontSize: 20),),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 10,bottom: 80,left: 10,right: 10),
+                  margin: EdgeInsets.only(top: 10,bottom: 10,left: 10,right: 10),
                   height: 50,
                   width: 120,
                   alignment: Alignment.center,
@@ -79,6 +79,32 @@ class new_game extends StatelessWidget {
                   child: Text("Player 2", style: TextStyle(color: Colors.white,fontSize: 20),),
                 ),
               ],
+            ),
+
+            Container(
+              alignment: Alignment.center,
+              height: 80,
+              width: double.infinity,
+              decoration: ShapeDecoration(
+                  shadows: [
+                    BoxShadow(
+                        color: Color(0xff010d4d),
+                        blurStyle: BlurStyle.normal,
+                        offset: Offset(2, 1),
+                        blurRadius: 5
+                    )
+                  ],
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  color: B.s1 == 0 ? Color(0xff010d4d) : (B.s1 == 1 ? Colors.red : Colors.cyan )),
+              margin: EdgeInsets.all(30),
+              child: Obx(() => Text(
+                B.msg.value,
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold),
+              )),
             ),
 
             Column(
@@ -109,28 +135,53 @@ class new_game extends StatelessWidget {
                   ],
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Container(
                       margin: EdgeInsets.all(50),
+                      decoration: ShapeDecoration(
+                        shadows: [
+                          BoxShadow(
+                              color: Color(0xff010d4d),
+                              blurStyle: BlurStyle.normal,
+                              offset: Offset(2, 1),
+                              blurRadius: 5
+                          )
+                        ],
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                      ),
                       child: ElevatedButton.icon(
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(Color(0xff010d4d))),
                         onPressed: () {
                           B.reset();
                         },icon: Icon(Icons.refresh_rounded),
-                        label: Text("Reset",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,letterSpacing: 2.0,fontSize: 20),),
+                        label: Text("Reset",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,letterSpacing: 2.0,fontSize: 16),),
                       ),
                     ),
 
                     Container(
                       margin: EdgeInsets.all(5),
+                      decoration: ShapeDecoration(
+                        shadows: [
+                          BoxShadow(
+                              color: Color(0xff010d4d),
+                              blurStyle: BlurStyle.normal,
+                              offset: Offset(2, 1),
+                              blurRadius: 5
+                          )
+                        ],
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                      ),
                       child: ElevatedButton.icon(
                         style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(Colors.black)),
+                            backgroundColor: MaterialStateProperty.all(Color(0xff010d4d))),
                         onPressed: () {
                           B.newgame();
                         },icon: Icon(Icons.power_settings_new),
-                        label: Text("New Game",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,letterSpacing: 2.0,fontSize: 20),),
+                        label: Text("New Game",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,letterSpacing: 2.0,fontSize: 16),),
                       ),
                     ),
                   ],
@@ -234,20 +285,20 @@ class b extends GetxController{
   }
 
   void reset() {
-    l = List.filled(9, "").obs;
-    cnt = 0.obs;
-    msg = "Game is Running".obs;
-    w = 0.obs;
-    s1 = 0.obs;
+    l.value = List.filled(9, "");
+    cnt.value = 0;
+    msg.value = "Game is Running";
+    w.value = 0;
+    s1.value = 0;
   }
 
   void newgame() {
-    l = List.filled(9, "").obs;
-    cnt = 0.obs;
-    msg = "Game is Running".obs;
-    w = 0.obs;
-    s1 = 0.obs;
-    cnt1 = 0.obs;
-    cnt2 = 0.obs;
+    l.value = List.filled(9, "");
+    cnt.value = 0;
+    msg.value = "Game is Running";
+    w.value = 0;
+    s1.value = 0;
+    cnt1.value = 0;
+    cnt2.value = 0;
   }
 }
