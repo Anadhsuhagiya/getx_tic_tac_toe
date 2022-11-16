@@ -145,6 +145,7 @@ class b extends GetxController{
         width: 100,
         height: 100,
         margin: EdgeInsets.all(5),
+        alignment: Alignment.center,
         decoration: ShapeDecoration(
             color: Color(0xff010d4d),
             shadows: [
@@ -157,11 +158,11 @@ class b extends GetxController{
             ],
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10))),
-        child: Text(
+        child: Obx(() => Text(
           l[i],
           style: TextStyle(
-              fontSize: 55, fontWeight: FontWeight.bold, color: Colors.white),
-        ),
+              fontSize: 75, fontWeight: FontWeight.bold, color: Colors.white),
+        )),
       ),
     );
   }

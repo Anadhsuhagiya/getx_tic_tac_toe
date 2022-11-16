@@ -17,7 +17,7 @@ class Home extends StatelessWidget {
         children: [
           InkWell(
             onTap: () {
-              Get.to(new_game());
+              Get.off(new_game());
             },
             child: Container(
               height: 60,
