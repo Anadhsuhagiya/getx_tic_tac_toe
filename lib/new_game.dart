@@ -23,8 +23,9 @@ class new_game extends StatelessWidget {
               children: [
                 Container(
                   margin: EdgeInsets.only(top: 10,bottom: 80,left: 10,right: 10),
-                  height: 40,
+                  height: 50,
                   width: 120,
+                  alignment: Alignment.center,
                   decoration: ShapeDecoration(
                     color: Color(0xff010d4d),
                       shadows: [
@@ -37,11 +38,13 @@ class new_game extends StatelessWidget {
                       ],
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10))),
+                  child: Text("Player 1", style: TextStyle(color: Colors.white,fontSize: 20),),
                 ),
                 Container(
                   margin: EdgeInsets.only(top: 10,bottom: 80,left: 10,right: 10),
-                  height: 40,
+                  height: 50,
                   width: 70,
+                  alignment: Alignment.center,
                   decoration: ShapeDecoration(
                       color: Color(0xff010d4d),
                       shadows: [
@@ -54,11 +57,13 @@ class new_game extends StatelessWidget {
                       ],
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10))),
+                  child: Text("${B.cnt1.value} - ${B.cnt2.value}", style: TextStyle(color: Colors.white,fontSize: 20),),
                 ),
                 Container(
                   margin: EdgeInsets.only(top: 10,bottom: 80,left: 10,right: 10),
-                  height: 40,
+                  height: 50,
                   width: 120,
+                  alignment: Alignment.center,
                   decoration: ShapeDecoration(
                       color: Color(0xff010d4d),
                       shadows: [
@@ -71,6 +76,7 @@ class new_game extends StatelessWidget {
                       ],
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10))),
+                  child: Text("Player 2", style: TextStyle(color: Colors.white,fontSize: 20),),
                 ),
               ],
             ),
@@ -102,6 +108,33 @@ class new_game extends StatelessWidget {
                     B.box(8),
                   ],
                 ),
+                Row(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.all(50),
+                      child: ElevatedButton.icon(
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(Color(0xff010d4d))),
+                        onPressed: () {
+                          B.reset();
+                        },icon: Icon(Icons.refresh_rounded),
+                        label: Text("Reset",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,letterSpacing: 2.0,fontSize: 20),),
+                      ),
+                    ),
+
+                    Container(
+                      margin: EdgeInsets.all(5),
+                      child: ElevatedButton.icon(
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(Colors.black)),
+                        onPressed: () {
+                          B.newgame();
+                        },icon: Icon(Icons.power_settings_new),
+                        label: Text("New Game",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,letterSpacing: 2.0,fontSize: 20),),
+                      ),
+                    ),
+                  ],
+                ),
               ],
             )
           ],
@@ -112,15 +145,18 @@ class new_game extends StatelessWidget {
 }
 
 
+
 class b extends GetxController{
 
   RxList l = List.filled(9, "").obs;
   RxInt w = 0.obs;
-  RxInt cnt = 0.obs, cnt1 = 0.obs , cnt2 = 0.obs;
+  RxInt cnt = 0.obs;
+  RxInt cnt1 = 0.obs;
+  RxInt cnt2 = 0.obs;
   String p1 = "X";
   String p2 = "O";
   RxString msg = "Game is Running".obs;
-  int s1 = 0;
+  RxInt s1 = 0.obs;
 
 
   Widget box(int i)
@@ -137,7 +173,7 @@ class b extends GetxController{
           {
             l[i] = p2;
           }
-          cnt++;
+          cnt.value++;
           win();
         }
       },
@@ -176,10 +212,10 @@ class b extends GetxController{
         (l[2] == p1 && l[5] == p1 && l[8] == p1) ||
         (l[0] == p1 && l[4] == p1 && l[8] == p1) ||
         (l[2] == p1 && l[4] == p1 && l[6] == p1)) {
-      msg = "$p1 is Winner".obs;
-      cnt1++;
-      s1 = 1;
-      w = 1.obs;
+      msg.value = "$p1 is Winner";
+      cnt1.value++;
+      s1.value = 1;
+      w.value = 1;
     } else if ((l[0] == p2 && l[1] == p2 && l[2] == p2) ||
         (l[3] == p2 && l[4] == p2 && l[5] == p2) ||
         (l[6] == p2 && l[7] == p2 && l[8] == p2) ||
@@ -188,12 +224,30 @@ class b extends GetxController{
         (l[2] == p2 && l[5] == p2 && l[8] == p2) ||
         (l[0] == p2 && l[4] == p2 && l[8] == p2) ||
         (l[2] == p2 && l[4] == p2 && l[6] == p2)) {
-      msg = "$p2 is Winner".obs;
-      cnt2++;
-      s1 = 2;
+      msg.value = "$p2 is Winner";
+      cnt2.value++;
+      s1.value = 2;
       w = 1.obs;
     } else if (cnt == 9) {
-      msg = "Game is Draw".obs;
+      msg.value = "Game is Draw";
     }
+  }
+
+  void reset() {
+    l = List.filled(9, "").obs;
+    cnt = 0.obs;
+    msg = "Game is Running".obs;
+    w = 0.obs;
+    s1 = 0.obs;
+  }
+
+  void newgame() {
+    l = List.filled(9, "").obs;
+    cnt = 0.obs;
+    msg = "Game is Running".obs;
+    w = 0.obs;
+    s1 = 0.obs;
+    cnt1 = 0.obs;
+    cnt2 = 0.obs;
   }
 }

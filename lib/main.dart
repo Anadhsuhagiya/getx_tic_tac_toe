@@ -6,6 +6,6 @@ import 'new_game.dart';
 
 void main()
 {
-    runApp(GetMaterialApp(home: Home(),));
+    runApp(GetMaterialApp(home: Home(),debugShowCheckedModeBanner: false,));
 }
 
